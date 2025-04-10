@@ -36,7 +36,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 text-[20px] items-center">
             <div>
               <p className="mb-5">
-                We create pieces you’ll love wearing and love more to show off. Pieces that make you feel beautiful, precious and seen.
+                We create pieces you&rsquo;ll love wearing and love more to show off. Pieces that make you feel beautiful, precious and seen.
               </p>
               <p>
                 The brand is a personal that started during Covid quarantine in our home atelier/office/packing centre in Yogyakarta, Indonesia.
@@ -69,10 +69,10 @@ export default function AboutPage() {
             />
             <div>
               <p className="mb-5">
-                Our UglyBijoux are composed of materials and funky elements we found around us. Some were leftover beads from mom’s abandoned bead project, some were found in local shops nearby, and some were specially crafted by artisans in Java, Indonesia.
+                Our UglyBijoux are composed of materials and funky elements we found around us. Some were leftover beads from mom&rsquo;s abandoned bead project, some were found in local shops nearby, and some were specially crafted by artisans in Java, Indonesia.
               </p>
               <p>
-                UglyBijoux keeps us creatively stimulated. It’s essentially an exciting art initiative turned serious business.
+                UglyBijoux keeps us creatively stimulated. It&rsquo;s essentially an exciting art initiative turned serious business.
               </p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
       <section className="py-28 px-6 sm:px-10 md:px-20 max-w-4xl mx-auto space-y-6 text-lg leading-8">
         <FadeIn yOffset={30}>
           <p>
-            The joy of running the brand is rooted in the creation process. And disrupting what’s normally considered ugly or pretty.
+            The joy of running the brand is rooted in the creation process. And disrupting what&rsquo;s normally considered ugly or pretty.
           </p>
           <p>
             We mix cheap and expensive materials, ignore the masculine–feminine silhouette, and design jewellery with a general fuck-it attitude.
@@ -101,10 +101,10 @@ export default function AboutPage() {
             All while creating a funky and fabulous universe where you and I can actually enjoy ourselves.
           </p>
           <p>
-            We’re really just making pieces that we love and adore — secretly hoping that you will too.
+            We&rsquo;re really just making pieces that we love and adore — secretly hoping that you will too.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-6">
-            <p className="font-semibold text-xl">Let’s start!</p>
+            <p className="font-semibold text-xl">Let&rsquo;s start!</p>
             <Link
               href="/products"
               className="inline-flex items-center gap-3 px-6 py-2 border border-black text-black uppercase tracking-wide font-medium hover:bg-black hover:text-white transition-all duration-300"

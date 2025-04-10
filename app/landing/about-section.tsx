@@ -21,7 +21,7 @@ const AboutSection = () => {
           </TextBlock>
 
           <TextBlock>
-            We create pieces you'll love wearing and love more to show off. Pieces that make you feel beautiful, precious and seen.
+            We create pieces you&rsquo;ll love wearing and love more to show off. Pieces that make you feel beautiful, precious and seen.
           </TextBlock>
 
           <TextBlock>
@@ -33,7 +33,7 @@ const AboutSection = () => {
           </TextBlock>
 
           <TextBlock>
-            Uglybijoux keeps us creatively stimulated. It's an exciting art initiative turned serious business.
+            Uglybijoux keeps us creatively stimulated. It&rsquo;s an exciting art initiative turned serious business.
           </TextBlock>
 
           <TextBlock isBold className="text-lg tracking-tight font-bold italic">
@@ -41,7 +41,7 @@ const AboutSection = () => {
           </TextBlock>
 
           <TextBlock>
-            The joy of running the brand is rooted in the process itself — and disrupting what's considered ugly or pretty.
+            The joy of running the brand is rooted in the process itself — and disrupting what&rsquo;s considered ugly or pretty.
           </TextBlock>
 
           <TextBlock>
@@ -53,10 +53,10 @@ const AboutSection = () => {
           </TextBlock>
 
           <TextBlock>
-            We’re just making pieces that we love and adore — secretly hoping that you will too.
+            We&rsquo;re just making pieces that we love and adore — secretly hoping that you will too.
           </TextBlock>
 
-          <TextBlock className="font-semibold">Let’s start.</TextBlock>
+          <TextBlock className="font-semibold">Let&rsquo;s start.</TextBlock>
         </div>
       </div>
     </section>
