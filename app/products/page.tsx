@@ -1,22 +1,12 @@
+// "use client" must stay at the top
 "use client";
 
-import React from "react";
-import products from "@/lib/product-all";
-import ProductCard from "@/components/ProductCard";
+import React, { Suspense } from "react";
+import ProductPageContent from "./ProductPageContent"; // ⬅️ new file/component
 import FadeIn from "@/components/FadeIn";
-import { useSearchParams } from "next/navigation";
 
+// Top-level component
 export default function ProductPage() {
-  const searchParams = useSearchParams();
-  const filter = searchParams.get("filter");
-
-  const filteredProducts = filter
-    ? products.filter(
-        (product) =>
-          product.category.toLowerCase() === filter.toLowerCase()
-      )
-    : products;
-
   return (
     <main className="bg-white text-black font-anodina">
       {/* Hero Title Section */}
@@ -28,25 +18,10 @@ export default function ProductPage() {
         </FadeIn>
       </section>
 
-      {/* Product Grid */}
-      <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-10 pb-24">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-6">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.slug}
-              className="border border-black"
-            >
-              <ProductCard
-                image1={product.image1}
-                image2={product.image2}
-                category={product.category}
-                title={product.title}
-                price={product.price}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Suspense-wrapped dynamic content */}
+      <Suspense fallback={<p className="text-center">Loading products...</p>}>
+        <ProductPageContent />
+      </Suspense>
     </main>
   );
 }
