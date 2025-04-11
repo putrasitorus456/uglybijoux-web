@@ -10,6 +10,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "pink-pouch",
@@ -22,6 +23,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "roxanne-special",
@@ -34,6 +36,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "eve-season",
@@ -46,6 +49,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "white-love",
@@ -58,11 +62,12 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Handcrafted to order (5 business days)", "Bracelet diameter 10 cm / 4 in", "Materials: Stainless steel chain, stainless steel beads", "Wipe dry with a soft cloth after each wear"],
   },
   {
     slug: "black-heart",
     image1:
-      "/images/necklace-landing-1.jpg",
+      "/images/necklace-landing-2.jpg",
     image2:
     "/images/necklace-landing-2-2.jpg",
     category: "Necklaces",
@@ -70,6 +75,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Handcrafted to order (5 business days)", "Bracelet diameter 10 cm / 4 in", "Materials: Stainless steel chain, stainless steel beads", "Wipe dry with a soft cloth after each wear"],
   },
   {
     slug: "simple-soft",
@@ -82,6 +88,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Handcrafted to order (5 business days)", "Bracelet diameter 10 cm / 4 in", "Materials: Stainless steel chain, stainless steel beads", "Wipe dry with a soft cloth after each wear"],
   },
   {
     slug: "peanut-neck",
@@ -94,6 +101,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Handcrafted to order (5 business days)", "Bracelet diameter 10 cm / 4 in", "Materials: Stainless steel chain, stainless steel beads", "Wipe dry with a soft cloth after each wear"],
   },
   {
     slug: "blue-pouch",
@@ -106,6 +114,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "pink-pouch",
@@ -118,6 +127,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "roxanne-special",
@@ -130,6 +140,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   },
   {
     slug: "eve-season",
@@ -142,6 +153,7 @@ const products = [
     description:
       "Each piece carries a whisper of rebellion, romance, or rawness.",
     price: "Rp 500.000",
+    details:["Stainless surgical steel", "Single stud drop earrings", "Made-to-order. Please give us 3 working days to process your order"],
   }
 ];
 
