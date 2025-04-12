@@ -58,16 +58,16 @@ export default function ClientProductDetail({ product }: { product: Product }) {
         {/* Info Section */}
         <div className="mt-10 flex flex-col justify-start gap-8">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-medium uppercase">{product.title}</h1>
+            <h1 className="text-[20px] sm:text-[20px] md:text-[25px] font-medium uppercase">{product.title}</h1>
             <p className="text-sm text-neutral-500 uppercase mt-1 mb-4">{product.category}</p>
-            <p className="text-base sm:text-lg leading-relaxed mb-6">{product.description}</p>
-            <p className="text-lg sm:text-xl font-semibold mb-6">{product.price}</p>
+            <p className="text-[15px] leading-relaxed mb-6">{product.description}</p>
+            <p className="text-[15px] font-semibold mb-6">{product.price}</p>
 
             {/* Details & Care */}
             {product.details && (
               <div className="mt-10 text-sm sm:text-base mb-6">
-                <h2 className="uppercase tracking-widest text-sm font-semibold mb-4">Details and Care</h2>
-                <ul className="space-y-2 list-disc list-inside text-neutral-700">
+                <h2 className="uppercase tracking-widest text-[18px] font-semibold mb-4">Details and Care</h2>
+                <ul className="space-y-2 text-[15px] list-disc list-inside text-neutral-700">
                   {product.details.map((detail, idx) => (
                     <li key={idx}>{detail}</li>
                   ))}
