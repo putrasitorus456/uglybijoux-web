@@ -2,8 +2,6 @@
 
 import React from "react";
 import ProductSection from "./landing/product-section";
-import FadeIn from "@/components/FadeIn";
-import Link from "next/link";
 
 export default function HomePage() {
   return (
