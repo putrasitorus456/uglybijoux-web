@@ -20,7 +20,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="text-[10px] sm:text-xs tracking-widest uppercase opacity-50">
-          © {new Date().getFullYear()} Uglybijoux. All rights reserved.
+          © {new Date().getFullYear()} Uglybijoux.
         </div>
       </div>
     </footer>

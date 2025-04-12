@@ -12,7 +12,7 @@ export default function ProductPage() {
       {/* Hero Title Section */}
       <section className="text-center px-6 sm:px-10 md:px-20 pt-32 pb-12">
         <FadeIn yOffset={30}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-4xl mx-auto">
+          <h1 className="text-[20px] sm:text-[20px] md:text-[25px] font-semibold tracking-tight max-w-4xl mx-auto">
             Explore UglyBijoux.
           </h1>
         </FadeIn>

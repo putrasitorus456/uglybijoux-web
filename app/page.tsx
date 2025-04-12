@@ -18,7 +18,7 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Hero Content */}
+        {/* Hero Content 
         <div className="relative z-10 px-6 md:px-12 pt-28 pb-32 max-w-7xl mx-auto">
           <FadeIn yOffset={20}>
             <div className="bg-white text-black w-fit px-6 py-6 sm:px-10 sm:py-8 shadow-xl max-w-md sm:max-w-lg">
@@ -45,7 +45,7 @@ export default function HomePage() {
               </Link>
             </div>
           </FadeIn>
-        </div>
+        </div>*/}
       </main>
       <ProductSection />
       <main className="relative w-full bg-white min-h-screen overflow-hidden pt-16">
