@@ -19,7 +19,7 @@ export default function ProductSection() {
         <div className="mt-12 text-center">
           <Link
             href="/products"
-            className="inline-block text-sm sm:text-base font-medium uppercase tracking-wide px-6 py-3 border border-black hover:bg-black hover:text-white transition-all duration-200"
+            className="inline-block text-[10px] sm:text-[13px] font-medium uppercase tracking-wide px-4 py-2 border border-black hover:bg-black hover:text-white transition-all duration-200"
           >
             Shop all products
           </Link>

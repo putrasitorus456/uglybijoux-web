@@ -41,14 +41,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Hover Text */}
         <div className="mt-1 sm:mt-2 px-1 sm:px-2 text-left opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <p className="text-[9px] sm:text-[10px] md:text-xs text-neutral-500 uppercase tracking-wide">
+          <p className="text-[9px] sm:text-[9px] text-neutral-500 uppercase tracking-wide">
             {category}
           </p>
           <div className="flex justify-between items-center gap-2">
-            <h3 className="text-[13px] sm:text-sm md:text-base font-medium text-black uppercase tracking-tight truncate">
+            <h3 className="text-[13px] font-medium text-black uppercase tracking-tight truncate">
               {title}
             </h3>
-            <span className="text-[13px] sm:text-sm md:text-base font-normal text-black whitespace-nowrap">
+            <span className="text-[13px] font-normal text-black whitespace-nowrap">
               {price}
             </span>
           </div>

@@ -11,12 +11,12 @@ export default function Header() {
     <header className="bg-white fixed top-0 left-0 w-full z-30 px-4 sm:px-6 transition-all duration-300">
       <div className="max-w-screen-xl mx-auto h-16 grid grid-cols-3">
         {/* Left - Menu (mobile) */}
-        <div className="md:hidden absolute left-3 top-3 text-sm uppercase font-medium tracking-wide text-left">
+        <div className="md:hidden absolute left-3 top-5 text-sm uppercase font-medium tracking-wide text-left">
           <button onClick={() => setIsMobileMenuOpen(true)}>MENU</button>
         </div>
 
         {/* Left - Nav (desktop) */}
-        <nav className="hidden md:flex flex-wrap gap-x-10 gap-y-2 text-[13px] text-black font-medium uppercase tracking-wide font-medium absolute top-3 left-3">
+        <nav className="hidden md:flex flex-wrap gap-x-10 gap-y-2 text-[13px] text-black font-medium uppercase tracking-wide font-medium absolute top-5 left-3">
           <Link href="/" className="hover:underline">Home</Link>
 
           {/* Shop Dropdown - Hover */}
@@ -56,7 +56,7 @@ export default function Header() {
         </div>
 
         {/* Right - Cart */}
-        <div className="absolute top-3 right-3 text-[13px] font-medium text-black tracking-wide uppercase">
+        <div className="absolute top-5 right-3 text-[13px] font-medium text-black tracking-wide uppercase">
           Cart (1)
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-white px-6 py-6 overflow-auto">
           <div className="flex justify-between items-center mb-6">
-            <span className="text-sm font-semibold uppercase tracking-wide">MENU</span>
+            <span className="text-sm font-semibold uppercase tracking-wide absolute">MENU</span>
             <button onClick={() => setIsMobileMenuOpen(false)} className="text-2xl leading-none">
               &times;
             </button>
