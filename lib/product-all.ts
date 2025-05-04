@@ -67,7 +67,7 @@ const products = [
   {
     slug: "black-heart",
     image1:
-      "/images/necklace-landing-1.jpg",
+      "/images/necklace-landing-2.jpg",
     image2:
     "/images/necklace-landing-2-2.jpg",
     category: "Necklaces",
