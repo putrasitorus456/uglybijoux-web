@@ -12,7 +12,7 @@ export default function ProductPageContent() {
   const searchParams = useSearchParams();
   const filter = searchParams.get('filter');
 
-  const { data: products, error, isLoading } = useSWR('uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
+  const { data: products, error, isLoading } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];

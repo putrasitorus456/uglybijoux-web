@@ -8,8 +8,8 @@ import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function HomepageProduct() {
-  const { data: shop, mutate: refreshShop } = useSWR('uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
-  const { data: homepage, mutate: refreshHomepage } = useSWR('uglybijoux-backend-production.up.railway.app/products/homepage', fetcher);
+  const { data: shop, mutate: refreshShop } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
+  const { data: homepage, mutate: refreshHomepage } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/homepage', fetcher);
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
 
   const isOnHomepage = (productId: string) =>
@@ -25,7 +25,7 @@ export default function HomepageProduct() {
     if (!confirmed) return;
 
     setLoadingProductId(productId);
-    const url = `uglybijoux-backend-production.up.railway.app/products/homepage/${productId}`;
+    const url = `https://uglybijoux-backend-production.up.railway.app/products/homepage/${productId}`;
 
     try {
       if (currentlyShown) {

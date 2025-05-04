@@ -14,7 +14,7 @@ export default function ProductSection() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("uglybijoux-backend-production.up.railway.app/products/homepage");
+        const res = await axios.get("https://uglybijoux-backend-production.up.railway.app/products/homepage");
         const data = res.data.map((entry: any) => entry.shop_products);
         setProducts(data);
       } catch (err) {

@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function ShopPage() {
-  const { data, mutate } = useSWR('uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
+  const { data, mutate } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
 
   const [form, setForm] = useState({
     title: '',
@@ -72,7 +72,7 @@ export default function ShopPage() {
     formData.append('image2', image2);
   
     try {
-      await axios.post('uglybijoux-backend-production.up.railway.app/products/shop', formData);
+      await axios.post('https://uglybijoux-backend-production.up.railway.app/products/shop', formData);
       toast.success('Produk ditambahkan');
       setForm({ title: '', price: '', category: '', description: '', details: [''] });
       setImage1(null);
@@ -93,7 +93,7 @@ export default function ShopPage() {
 
     setDeletingId(id);
     try {
-      await axios.delete(`uglybijoux-backend-production.up.railway.app/products/shop/${id}`);
+      await axios.delete(`https://uglybijoux-backend-production.up.railway.app/products/shop/${id}`);
       toast.success('Produk dihapus');
       mutate();
     } catch {
