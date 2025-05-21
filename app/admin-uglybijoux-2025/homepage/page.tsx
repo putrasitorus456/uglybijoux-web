@@ -5,11 +5,13 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
+// Gunakan endpoint internal (proxy) dari Next.js App Router
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function HomepageProduct() {
-  const { data: shop, mutate: refreshShop } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
-  const { data: homepage, mutate: refreshHomepage } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/homepage', fetcher);
+  // Ubah ke route internal
+  const { data: shop, mutate: refreshShop } = useSWR('/api/products/shop', fetcher);
+  const { data: homepage, mutate: refreshHomepage } = useSWR('/api/products/homepage', fetcher);
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
 
   const isOnHomepage = (productId: string) =>
@@ -25,18 +27,18 @@ export default function HomepageProduct() {
     if (!confirmed) return;
 
     setLoadingProductId(productId);
-    const url = `https://uglybijoux-backend-production.up.railway.app/products/homepage/${productId}`;
+    const url = `/api/products/homepage/${productId}`;
 
     try {
       if (currentlyShown) {
         await axios.delete(url);
-        toast.success('Produk berhasil dihapus dari homepage');
       } else {
         await axios.post(url);
-        toast.success('Produk berhasil ditampilkan di homepage');
       }
 
-      await Promise.all([refreshHomepage(), refreshShop()]);
+      await new Promise(resolve => setTimeout(resolve, 10000));
+      window.location.reload();
+      await refreshHomepage();
     } catch (err) {
       console.error('Gagal mengubah status produk homepage:', err);
       toast.error('Gagal mengubah status produk');

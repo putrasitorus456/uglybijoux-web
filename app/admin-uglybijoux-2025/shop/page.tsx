@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function ShopPage() {
-  const { data, mutate } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
+  const { data, mutate } = useSWR('/api/products/shop', fetcher);
 
   const [form, setForm] = useState({
     title: '',
@@ -24,6 +24,34 @@ export default function ShopPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const image1Ref = useRef<HTMLInputElement>(null);
   const image2Ref = useRef<HTMLInputElement>(null);
+  const [editMode, setEditMode] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
+
+  const handleEdit = (item: any) => {
+    setForm({
+      title: item.title,
+      price: item.price,
+      category: item.category,
+      description: item.description,
+      details: item.details || ['']
+    });
+    setEditId(item.id);
+    setEditMode(true);
+    setImage1(null);
+    setImage2(null);
+    if (image1Ref.current) image1Ref.current.value = '';
+    if (image2Ref.current) image2Ref.current.value = '';
+  };
+
+  const handleCancelEdit = () => {
+    setForm({ title: '', price: '', category: '', description: '', details: [''] });
+    setImage1(null);
+    setImage2(null);
+    setEditId(null);
+    setEditMode(false);
+    if (image1Ref.current) image1Ref.current.value = '';
+    if (image2Ref.current) image2Ref.current.value = '';
+  };
 
   const handleDetailChange = (index: number, value: string) => {
     const updated = [...form.details];
@@ -40,26 +68,27 @@ export default function ShopPage() {
 
   const handleSubmit = async () => {
     const { title, price, category, description, details } = form;
-  
+
     if (!title || !price || !category || !description) {
       toast.error('Semua field wajib diisi');
       return;
     }
-  
-    if (!image1 || !image2) {
-      toast.error('Gambar wajib diisi');
-      return;
+
+    if (!editMode) {
+      if (!image1 || !image2) {
+        toast.error('Gambar wajib diisi');
+        return;
+      }
     }
-  
-    const isDetailEmpty = details.some(detail => !detail.trim());
-    if (isDetailEmpty) {
+
+    if (details.some(detail => !detail.trim())) {
       toast.error('Semua detail produk wajib diisi');
       return;
     }
-  
+
     setLoading(true);
     const formData = new FormData();
-  
+
     Object.entries(form).forEach(([key, value]) => {
       if (key === 'details') {
         formData.append(key, JSON.stringify(value));
@@ -67,35 +96,54 @@ export default function ShopPage() {
         formData.append(key, value as string);
       }
     });
-  
-    formData.append('image1', image1);
-    formData.append('image2', image2);
-  
+
+    if (image1) formData.append('image1', image1);
+    if (image2) formData.append('image2', image2);
+
     try {
-      await axios.post('https://uglybijoux-backend-production.up.railway.app/products/shop', formData);
-      toast.success('Produk ditambahkan');
+      if (editMode && editId) {
+        const body = {
+          title: form.title,
+          price: form.price,
+          category: form.category,
+          description: form.description,
+          details: form.details,
+        };
+
+        await axios.put(`/api/products/shop/${editId}`, body);
+        toast.success('Produk diperbarui');
+        window.location.reload();
+      } else {
+        await axios.post('/api/products/shop', formData);
+        toast.success('Produk ditambahkan');
+        setForm({ title: '', price: '', category: '', description: '', details: [''] });
+        setImage1(null);
+        setImage2(null);
+    
+        if (image1Ref.current) image1Ref.current.value = '';
+        if (image2Ref.current) image2Ref.current.value = '';
+        window.location.reload();;
+      }
+
       setForm({ title: '', price: '', category: '', description: '', details: [''] });
-      setImage1(null);
-      setImage2(null);
-  
+      setEditId(null);
+      setEditMode(false);
       if (image1Ref.current) image1Ref.current.value = '';
       if (image2Ref.current) image2Ref.current.value = '';
-      mutate();
+      window.location.reload();
     } catch {
-      toast.error('Gagal menambahkan produk');
-    } finally {
-      setLoading(false);
+      toast.error(editMode ? 'Gagal memperbarui produk' : 'Gagal menambahkan produk');
     }
-  };  
+  };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Yakin ingin menghapus produk ini?')) return;
 
     setDeletingId(id);
     try {
-      await axios.delete(`https://uglybijoux-backend-production.up.railway.app/products/shop/${id}`);
+      await axios.delete(`/api/products/shop/${id}`);
       toast.success('Produk dihapus');
-      mutate();
+      window.location.reload();;
     } catch {
       toast.error('Gagal menghapus produk');
     } finally {
@@ -140,16 +188,20 @@ export default function ShopPage() {
           placeholder="Deskripsi"
           className="border p-2"
         />
-        <div className="flex flex-col gap-1">
-          <label className="text-sm">Gambar 1</label>
-          <input type="file" ref={image1Ref} onChange={e => setImage1(e.target.files?.[0] || null)} />
-          {image1 && <img src={URL.createObjectURL(image1)} alt="Preview" className="w-24 h-24 object-cover mt-2 rounded" />}
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-sm">Gambar 2</label>
-          <input type="file" ref={image2Ref} onChange={e => setImage2(e.target.files?.[0] || null)} />
-          {image2 && <img src={URL.createObjectURL(image2)} alt="Preview" className="w-24 h-24 object-cover mt-2 rounded" />}
-        </div>
+        {!editMode && (
+          <>
+            <div className="flex flex-col gap-1">
+              <label className="text-sm">Gambar 1</label>
+              <input type="file" ref={image1Ref} onChange={e => setImage1(e.target.files?.[0] || null)} />
+              {image1 && <img src={URL.createObjectURL(image1)} alt="Preview" className="w-24 h-24 object-cover mt-2 rounded" />}
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-sm">Gambar 2</label>
+              <input type="file" ref={image2Ref} onChange={e => setImage2(e.target.files?.[0] || null)} />
+              {image2 && <img src={URL.createObjectURL(image2)} alt="Preview" className="w-24 h-24 object-cover mt-2 rounded" />}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="mb-6">
@@ -170,13 +222,25 @@ export default function ShopPage() {
         </div>
       </div>
 
-      <button
-        onClick={handleSubmit}
-        disabled={loading}
-        className={`bg-black text-white px-6 py-2 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-      >
-        {loading ? 'Menyimpan...' : 'Tambah Produk'}
-      </button>
+      <div className="flex gap-4">
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className={`bg-black text-white px-6 py-2 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          {loading ? 'Menyimpan...' : editMode ? 'Perbarui Produk' : 'Tambah Produk'}
+        </button>
+
+        {editMode && (
+          <button
+            onClick={handleCancelEdit}
+            className="bg-black text-white px-6 py-2 rounded"
+            disabled={loading}
+          >
+            Batal
+          </button>
+        )}
+      </div>
 
       <hr className="my-8" />
 
@@ -195,6 +259,12 @@ export default function ShopPage() {
               className={`text-white px-3 py-1 rounded ${deletingId === item.id ? 'bg-gray-400' : 'bg-red-600'}`}
             >
               {deletingId === item.id ? 'Menghapus...' : 'Hapus'}
+            </button>
+            <button
+              onClick={() => handleEdit(item)}
+              className="bg-blue-600 text-white px-3 py-1 rounded mr-2"
+            >
+              Edit
             </button>
           </div>
         ))}
