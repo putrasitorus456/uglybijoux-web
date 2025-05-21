@@ -10,7 +10,7 @@ const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function HomepageProduct() {
   // Ubah ke route internal
-  const { data: shop, mutate: refreshShop } = useSWR('/api/products/shop', fetcher);
+  const { data: shop} = useSWR('/api/products/shop', fetcher);
   const { data: homepage, mutate: refreshHomepage } = useSWR('/api/products/homepage', fetcher);
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
 

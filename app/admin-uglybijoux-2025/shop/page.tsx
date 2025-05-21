@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function ShopPage() {
-  const { data, mutate } = useSWR('/api/products/shop', fetcher);
+  const { data } = useSWR('/api/products/shop', fetcher);
 
   const [form, setForm] = useState({
     title: '',
