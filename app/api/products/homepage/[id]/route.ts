@@ -4,11 +4,9 @@ import { NextRequest, NextResponse } from 'next/server';
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 const API_KEY = process.env.INTERNAL_API_KEY!;
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function POST(req: NextRequest, context: any) {
+  const id = context.params.id;
+
   try {
     const res = await fetch(`${BASE_URL}/products/homepage/${id}`, {
       method: 'POST',
@@ -26,11 +24,9 @@ export async function POST(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function DELETE(req: NextRequest, context: any) {
+  const id = context.params.id;
+
   try {
     const res = await fetch(`${BASE_URL}/products/homepage/${id}`, {
       method: 'DELETE',
