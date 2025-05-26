@@ -14,7 +14,8 @@ export default function ProductSection() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("https://uglybijoux-backend-production.up.railway.app/products/homepage");
+        // 🔁 Panggil API internal Next.js
+        const res = await axios.get("/api/products/homepage");
         const data = res.data.map((entry: any) => entry.shop_products);
         setProducts(data);
       } catch (err) {
@@ -33,20 +34,28 @@ export default function ProductSection() {
       <div className="w-full overflow-hidden">
         {/* Product Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-px">
-          {loading && Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="animate-pulse bg-gray-100 h-64 rounded-sm" />
-          ))}
+          {loading &&
+            Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="animate-pulse bg-gray-100 h-64 rounded-sm" />
+            ))}
 
-          {!loading && !error && products.length > 0 && products.map((product, index) => (
-            <ProductCard key={index} {...getSafeProduct(product)} />
-          ))}
+          {!loading &&
+            !error &&
+            products.length > 0 &&
+            products.map((product, index) => (
+              <ProductCard key={index} {...getSafeProduct(product)} />
+            ))}
 
           {!loading && products.length === 0 && (
-            <p className="col-span-full text-center text-gray-500 py-12">Tidak ada produk untuk homepage.</p>
+            <p className="col-span-full text-center text-gray-500 py-12">
+              Tidak ada produk untuk homepage.
+            </p>
           )}
 
           {error && (
-            <p className="col-span-full text-center text-red-600 py-12">Gagal memuat data produk.</p>
+            <p className="col-span-full text-center text-red-600 py-12">
+              Gagal memuat data produk.
+            </p>
           )}
         </div>
 

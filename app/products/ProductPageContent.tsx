@@ -12,7 +12,8 @@ export default function ProductPageContent() {
   const searchParams = useSearchParams();
   const filter = searchParams.get('filter');
 
-  const { data: products, error, isLoading } = useSWR('https://uglybijoux-backend-production.up.railway.app/products/shop', fetcher);
+  // 🔁 GANTI URL eksternal dengan API internal Next.js
+  const { data: products, error, isLoading } = useSWR('/api/products/shop', fetcher);
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];

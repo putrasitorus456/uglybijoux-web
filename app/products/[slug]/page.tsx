@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import ClientProductDetail from "./ClientProductDetail";
 
-export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const slug = (await params).slug;
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products/shop`, {

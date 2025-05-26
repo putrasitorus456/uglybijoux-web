@@ -5,9 +5,10 @@ const API_KEY = process.env.INTERNAL_API_KEY!;
 
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
   const id = context.params.id;
+
   try {
     const body = await req.json();
 
@@ -30,9 +31,10 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
   const id = context.params.id;
+
   try {
     const res = await fetch(`${BASE_URL}/products/shop/${id}`, {
       method: 'DELETE',
