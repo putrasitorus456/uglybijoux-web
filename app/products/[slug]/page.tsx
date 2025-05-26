@@ -1,14 +1,31 @@
-import products from "@/lib/product-all";
 import { notFound } from "next/navigation";
 import ClientProductDetail from "./ClientProductDetail";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function ProductDetailPage({ params }: { params: any }) {
+export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const slug = (await params).slug;
 
-  const product = products.find((p) => p.slug === slug);
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products/shop`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.INTERNAL_API_KEY!}`,
+      },
+      cache: 'no-store',
+    });
 
-  if (!product) return notFound();
+    if (!res.ok) {
+      console.error("Failed to fetch products", res.statusText);
+      return notFound();
+    }
 
-  return <ClientProductDetail product={product} />;
+    const products = await res.json();
+    const product = products.find((p: any) => p.slug === slug);
+
+    if (!product) return notFound();
+
+    return <ClientProductDetail product={product} />;
+  } catch (err) {
+    console.error("Error during product fetch:", err);
+    return notFound();
+  }
 }

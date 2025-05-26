@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 const API_KEY = process.env.INTERNAL_API_KEY!;
 
-export async function POST(
+export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {

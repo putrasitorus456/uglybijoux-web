@@ -18,15 +18,15 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
+    const body = await req.json();
 
     const res = await fetch(`${BASE_URL}/products/shop`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${API_KEY}`,
-        // Content-Type otomatis ditentukan oleh FormData
+        'Content-Type': 'application/json',
       },
-      body: formData,
+      body: JSON.stringify(body),
     });
 
     const data = await res.json();
