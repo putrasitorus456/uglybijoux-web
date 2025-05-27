@@ -111,18 +111,18 @@ export default function ShopPage() {
         };
 
         await axios.put(`/api/products/shop/${editId}`, body);
-        toast.success('Produk diperbarui');
+        await new Promise(resolve => setTimeout(resolve, 10000));
         window.location.reload();
       } else {
         await axios.post('/api/products/shop', formData);
-        toast.success('Produk ditambahkan');
         setForm({ title: '', price: '', category: '', description: '', details: [''] });
         setImage1(null);
         setImage2(null);
     
         if (image1Ref.current) image1Ref.current.value = '';
         if (image2Ref.current) image2Ref.current.value = '';
-        window.location.reload();;
+        await new Promise(resolve => setTimeout(resolve, 10000));
+        window.location.reload();
       }
 
       setForm({ title: '', price: '', category: '', description: '', details: [''] });
@@ -130,6 +130,7 @@ export default function ShopPage() {
       setEditMode(false);
       if (image1Ref.current) image1Ref.current.value = '';
       if (image2Ref.current) image2Ref.current.value = '';
+      await new Promise(resolve => setTimeout(resolve, 10000));
       window.location.reload();
     } catch {
       toast.error(editMode ? 'Gagal memperbarui produk' : 'Gagal menambahkan produk');
@@ -142,8 +143,8 @@ export default function ShopPage() {
     setDeletingId(id);
     try {
       await axios.delete(`/api/products/shop/${id}`);
-      toast.success('Produk dihapus');
-      window.location.reload();;
+      await new Promise(resolve => setTimeout(resolve, 10000));
+      window.location.reload();
     } catch {
       toast.error('Gagal menghapus produk');
     } finally {
