@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 interface Product {
+  id: string; // ✅ Tambahkan ini
   image1: string;
   image2: string;
   category: string;
@@ -13,7 +14,13 @@ interface Product {
   details?: string[] | string;
 }
 
-export default function ClientProductDetail({ product }: { product: Product }) {
+export default function ClientProductDetail({
+    product,
+    onAddToCartSuccess,
+  }: {
+    product: Product;
+    onAddToCartSuccess?: () => void;
+  }) {
   const images = [product.image1, product.image2];
   const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -37,6 +44,39 @@ export default function ClientProductDetail({ product }: { product: Product }) {
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length);
+  };
+
+  const handleAddToCart = async () => {
+    const guest_id = typeof window !== 'undefined' ? localStorage.getItem('guest_id') : null;
+    if (!guest_id) {
+      alert("Guest ID not found.");
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          guest_id,
+          product_id: product.id,
+          quantity,
+        }),
+      });
+
+      const data = await res.json();
+
+    if (res.ok) {
+      if (onAddToCartSuccess) onAddToCartSuccess(); // ✅ buka drawer jika disediakan
+    } else {
+      alert('Gagal menambahkan ke keranjang.');
+    }
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      alert('Terjadi kesalahan saat menambahkan ke keranjang.');
+    }
   };
 
   return (
@@ -109,7 +149,10 @@ export default function ClientProductDetail({ product }: { product: Product }) {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="mt-6 w-full sm:w-fit px-6 py-3 bg-black text-white text-sm uppercase tracking-wide hover:bg-neutral-800 transition">
+            <button
+              onClick={handleAddToCart}
+              className="mt-6 w-full sm:w-fit px-6 py-3 bg-black text-white text-sm uppercase tracking-wide hover:bg-neutral-800 transition"
+            >
               Add to Cart
             </button>
           </div>

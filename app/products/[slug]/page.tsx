@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ClientProductDetail from "./ClientProductDetail";
+import ProductDetailWrapper from "./ProductDetailWrapper";
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -24,7 +24,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
     if (!product) return notFound();
 
-    return <ClientProductDetail product={product} />;
+    return <ProductDetailWrapper product={product} />;
   } catch (err) {
     console.error("Error during product fetch:", err);
     return notFound();

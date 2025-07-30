@@ -19,14 +19,13 @@ type Props = {
 export default function CartDrawer({ isOpen, onClose }: Props) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [guestId, setGuestId] = useState<string | null>(null);
 
   useEffect(() => {
-  if (typeof window !== 'undefined') {
-    const id = localStorage.getItem('guest_id');
-    if (id) setGuestId(id);
-  }
+    if (typeof window !== 'undefined') {
+      const id = localStorage.getItem('guest_id');
+      if (id) setGuestId(id);
+    }
   }, []);
 
   const fetchCart = async () => {
@@ -34,7 +33,6 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
     const res = await fetch(`/api/cart/${guestId}`);
     const data = await res.json();
     setItems(data);
-    console.log('Cart items:', data);
     setLoading(false);
   };
 
@@ -45,6 +43,24 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
   function parsePrice(priceString: string): number {
     return parseInt(priceString.replace(/[^\d]/g, ''), 10);
   }
+
+  const updateQuantity = async (id: number, newQty: number) => {
+    await fetch('/api/cart', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ guest_id: guestId, cart_item_id: id, quantity: newQty }),
+    });
+    fetchCart();
+  };
+
+  const removeItem = async (id: number) => {
+    await fetch('/api/cart', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ guest_id: guestId, cart_item_id: id }),
+    });
+    fetchCart();
+  };
 
   const total = items.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
 
@@ -76,18 +92,45 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
             items.map((item) => (
               <div key={item.id} className="flex gap-4 items-start">
                 <img src={item.image1} alt={item.title} className="w-16 h-16 object-cover rounded" />
-                <div className="flex flex-col text-sm">
-                  <span className="font-medium">{item.title}</span>
-                  <span className="text-gray-500">Rp{item.price.toLocaleString()}</span>
-                  <span className="text-gray-600">Qty: {item.quantity}</span>
+                <div className="flex flex-col flex-1 text-sm">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="font-medium">{item.title}</span>
+                      <p className="text-gray-500">{item.price}</p>
+                    </div>
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      className="text-red-500 hover:underline text-xs"
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2 mt-2">
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                      className="px-2 py-1 border text-xs"
+                    >
+                      −
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      className="px-2 py-1 border text-xs"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
             ))
           )}
 
           {items.length > 0 && (
-            <div className="border-t pt-4 font-semibold text-sm">
-              Total: Rp{total.toLocaleString()}
+            <div className="border-t pt-4 font-semibold text-sm flex justify-between">
+              <span>Total:</span>
+              <span>Rp {total.toLocaleString()}</span>
             </div>
           )}
         </div>

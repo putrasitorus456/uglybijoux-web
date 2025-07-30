@@ -25,11 +25,11 @@ export default function ProductPageContent() {
   }, [products, filter]);
 
   if (isLoading) {
-    return <div className="p-6 text-center">Memuat produk...</div>;
+    return <div className="p-6 text-center">Loading product...</div>;
   }
 
   if (error) {
-    return <div className="p-6 text-center text-red-600">Gagal memuat produk.</div>;
+    return <div className="p-6 text-center text-red-600">Failed to load products.</div>;
   }
 
   return (

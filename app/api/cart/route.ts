@@ -6,8 +6,9 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log('Request body:', body); // Debugging line
 
-    const res = await fetch(`${BASE_URL}/api/cart`, {
+    const res = await fetch(`${BASE_URL}/api/cart/add`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env.INTERNAL_API_KEY}`,
@@ -31,7 +32,10 @@ export async function PUT(req: NextRequest) {
 
     const res = await fetch(`${BASE_URL}/api/cart/update`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${process.env.INTERNAL_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     });
 
@@ -50,7 +54,10 @@ export async function DELETE(req: NextRequest) {
 
     const res = await fetch(`${BASE_URL}/api/cart/remove`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${process.env.INTERNAL_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     });
 

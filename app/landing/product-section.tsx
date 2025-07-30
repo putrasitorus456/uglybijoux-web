@@ -48,13 +48,13 @@ export default function ProductSection() {
 
           {!loading && products.length === 0 && (
             <p className="col-span-full text-center text-gray-500 py-12">
-              Tidak ada produk untuk homepage.
+              No products available.
             </p>
           )}
 
           {error && (
             <p className="col-span-full text-center text-red-600 py-12">
-              Gagal memuat data produk.
+              No products available due to an error.
             </p>
           )}
         </div>
