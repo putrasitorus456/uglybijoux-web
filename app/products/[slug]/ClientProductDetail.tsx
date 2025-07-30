@@ -10,13 +10,26 @@ interface Product {
   title: string;
   description: string;
   price: string;
-  details?: string[];
+  details?: string[] | string;
 }
 
 export default function ClientProductDetail({ product }: { product: Product }) {
   const images = [product.image1, product.image2];
   const [currentImage, setCurrentImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  // Parse details if it's stringified JSON
+  let parsedDetails: string[] = [];
+  try {
+    parsedDetails =
+      typeof product.details === "string"
+        ? JSON.parse(product.details)
+        : Array.isArray(product.details)
+        ? product.details
+        : [];
+  } catch (err) {
+    console.error("Gagal parsing product.details:", err);
+  }
 
   const prevImage = () => {
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
@@ -64,11 +77,11 @@ export default function ClientProductDetail({ product }: { product: Product }) {
             <p className="text-[15px] font-semibold mb-6">{product.price}</p>
 
             {/* Details & Care */}
-            {product.details && (
+            {parsedDetails.length > 0 && (
               <div className="mt-10 text-sm sm:text-base mb-6">
                 <h2 className="uppercase tracking-widest text-[18px] font-semibold mb-4">Details and Care</h2>
                 <ul className="space-y-2 text-[15px] list-disc list-inside text-neutral-700">
-                  {product.details.map((detail, idx) => (
+                  {parsedDetails.map((detail, idx) => (
                     <li key={idx}>{detail}</li>
                   ))}
                 </ul>

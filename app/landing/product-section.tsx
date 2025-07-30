@@ -16,7 +16,7 @@ export default function ProductSection() {
       try {
         // 🔁 Panggil API internal Next.js
         const res = await axios.get("/api/products/homepage");
-        const data = res.data.map((entry: any) => entry.shop_products);
+        const data = res.data;
         setProducts(data);
       } catch (err) {
         console.error("Gagal mengambil data homepage products:", err);

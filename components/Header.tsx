@@ -1,17 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CartDrawer from '@/components/CartDrawer';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileShop, setShowMobileShop] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !localStorage.getItem('guest_id')) {
+      const id = crypto.randomUUID();
+      localStorage.setItem('guest_id', id);
+    }
+  }, []);
 
   return (
     <header className="bg-white fixed top-0 left-0 w-full z-30 px-4 sm:px-6 transition-all duration-300">
       <div className="max-w-screen-xl mx-auto h-16 grid grid-cols-3">
         {/* Left - Menu (mobile) */}
-        <div className="md:hidden absolute left-3 top-5 text-sm uppercase font-medium tracking-wide text-left">
+        <div className="md:hidden absolute left-3 top-5 text-sm uppercase font-medium tracking-wide text-left hover:underline">
           <button onClick={() => setIsMobileMenuOpen(true)}>MENU</button>
         </div>
 
@@ -50,65 +59,94 @@ export default function Header() {
             <img
               src="/icon/logo-black.png"
               alt="Logo"
-              className="w-12 sm:w-112 md:w-14 h-auto object-contain"
+              className="w-12 sm:w-12 md:w-14 h-auto object-contain"
             />
           </Link>
         </div>
 
         {/* Right - Cart */}
-        <div className="absolute top-5 right-3 text-[13px] font-medium text-black tracking-wide uppercase">
-          Cart (1)
-        </div>
+        <button
+          onClick={() => setIsCartOpen(true)}
+          className="block absolute top-5 right-3 text-sm font-medium text-black tracking-wide uppercase"
+        >
+          Cart
+        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-white px-6 py-6 overflow-auto">
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-sm font-semibold uppercase tracking-wide absolute">MENU</span>
-            <button onClick={() => setIsMobileMenuOpen(false)} className="text-2xl leading-none">
-              &times;
+      <div
+      className={`md:hidden fixed inset-0 z-40 bg-white px-6 py-6 overflow-auto transform transition-transform duration-300 ease-in-out ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      } flex flex-col text-left`}
+    >
+
+        {/* Tombol Close */}
+        <div className="mb-6">
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-sm font-semibold uppercase tracking-wide"
+          >
+            Close
+          </button>
+        </div>
+
+        {/* Logo + Brand Name */}
+        <div className="flex items-center gap-3 mb-6">
+          <img src="/icon/logo-black.png" alt="Logo" className="w-12 h-auto" />
+          <span className="text-2xl font-bold tracking-wider">Uglybijoux</span>
+        </div>
+
+        {/* Navigation dengan garis atas dan bawah */}
+        <nav className="flex flex-col text-sm font-medium uppercase tracking-wide text-black w-full border-y border-gray-600 divide-y divide-gray-600">
+
+          <Link
+            href="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="py-4 hover:underline"
+          >
+            Home
+          </Link>
+
+          {/* SHOP Dropdown */}
+          <div className="py-4">
+            <button
+              onClick={() => setShowMobileShop(!showMobileShop)}
+              className="w-full flex items-center uppercase justify-between hover:underline"
+            >
+              <span>Shop</span>
+              <span>{showMobileShop ? "▲" : "▼"}</span>
             </button>
+
+            {showMobileShop && (
+              <div className="mt-2 ml-2 flex flex-col gap-2 text-xs">
+                <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">All</Link>
+                <Link href="/products?filter=necklaces" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">Necklaces</Link>
+                <Link href="/products?filter=bracelets" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">Bracelets</Link>
+                <Link href="/products?filter=charms" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">Charms</Link>
+                <Link href="/products?filter=rings" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">Rings</Link>
+                <Link href="/collections" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">Shop by Collection</Link>
+              </div>
+            )}
           </div>
 
-          <nav className="flex flex-col gap-4 text-sm font-medium uppercase tracking-wider text-black">
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-              Home
-            </Link>
+          <Link
+            href="/gallery"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="py-4 hover:underline"
+          >
+            Gallery
+          </Link>
 
-            {/* Mobile Dropdown SHOP */}
-            <div>
-              <button
-                onClick={() => setShowMobileShop(!showMobileShop)}
-                className="w-full text-left flex items-center justify-between hover:underline"
-              >
-                <span>SHOP</span>
-                <span>{showMobileShop ? "▲" : "▼"}</span>
-              </button>
-
-              {showMobileShop && (
-                <div className="mt-2 ml-4 flex flex-col gap-2 text-xs">
-                  <Link className="hover:underline" href="/products" onClick={() => setIsMobileMenuOpen(false)}>All</Link>
-                  <Link className="hover:underline" href="/products?filter=necklaces" onClick={() => setIsMobileMenuOpen(false)}>Necklaces</Link>
-                  <Link className="hover:underline" href="/products?filter=bracelets" onClick={() => setIsMobileMenuOpen(false)}>Bracelets</Link>
-                  <Link className="hover:underline" href="/products?filter=charms" onClick={() => setIsMobileMenuOpen(false)}>Charms</Link>
-                  <Link className="hover:underline" href="/products?filter=rings" onClick={() => setIsMobileMenuOpen(false)}>Rings</Link>
-                  <Link className="hover:underline" href="/collections" onClick={() => setIsMobileMenuOpen(false)}>Shop by Collection</Link>
-                </div>
-              )}
-            </div>
-
-            <Link href="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-              Gallery
-            </Link>
-            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-              About
-            </Link>
-
-            <div className="mt-6 text-sm uppercase font-semibold">Cart (1)</div>
-          </nav>
-        </div>
-      )}
+          <Link
+            href="/about"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="py-4 hover:underline"
+          >
+            About
+          </Link>
+        </nav>
+      </div>
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 }
